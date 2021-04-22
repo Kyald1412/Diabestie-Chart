@@ -16,6 +16,7 @@ struct HorizontalLine {
     let segment: LineSegment
     let width: CGFloat
     let text: String
+    let heightMultiplier: CGFloat
 }
 
 class ViewController: UIViewController {
@@ -38,6 +39,7 @@ class ViewController: UIViewController {
         self.barChart.layer.addSublayer(mainLayer)
         
         addHorizontalLine()
+        addHorizontalLineText()
         
     }
     
@@ -64,13 +66,14 @@ class ViewController: UIViewController {
         data.forEach { (heightMultiplier, text) in
             
             let yPos = self.barChart.frame.height - (heightMultiplier * self.barChart.frame.height)
+            let lineWidth = self.barChart.frame.width - 100
             
             let lineSegment = LineSegment(
                 startPoint: CGPoint(x: 0, y: yPos),
-                endPoint: CGPoint(x: self.barChart.frame.width, y: yPos)
+                endPoint: CGPoint(x: lineWidth, y: yPos)
             )
              
-            lines.append(HorizontalLine(segment: lineSegment, width: 0.5, text: text))
+            lines.append(HorizontalLine(segment: lineSegment, width: 0.5, text: text, heightMultiplier: heightMultiplier))
 
         }
         
@@ -78,6 +81,20 @@ class ViewController: UIViewController {
     }
     
     func addHorizontalLineText(){
+        let lines = computeHorizontalLine()
+        
+        lines.forEach { (line) in
+            
+            let xPos = self.barChart.frame.width - 100
+            let yPos = self.barChart.frame.height - (line.heightMultiplier * self.barChart.frame.height) - 8
+            
+            mainLayer.addTextLayer(
+                frame: CGRect(x: xPos, y: yPos, width: 50, height: 50),
+                color: UIColor.gray.cgColor,
+                fontSize: 12,
+                text: line.text
+            )
+        }
         
     }
    
