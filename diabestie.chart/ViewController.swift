@@ -123,14 +123,23 @@ class ViewController: UIViewController {
     
     func addBarChart(){
         
-        let barHeight: CGFloat = 100
-        let barCalculatedHeight = (barHeight / self.barChart.frame.height) * self.barChart.frame.height
+        let data = [
+            (widthMultiplier: CGFloat(1.0), text: "2020", value: 100),
+            (widthMultiplier: CGFloat(0.7), text: "2021", value: 150),
+            (widthMultiplier: CGFloat(0.4), text: "2022", value: 200)
+        ]
         
-        let xPos = CGFloat(self.barChart.frame.width - (1.0 * self.barChart.frame.width))
-        let yPos = CGFloat(self.barChart.frame.height - barCalculatedHeight)
+        data.forEach { (widthMultiplier, text, value) in
 
-        mainLayer.addRectangleLayer(frame: CGRect(x: xPos, y: yPos, width: 50, height: barHeight), color: UIColor.gray.cgColor)
+            let barCalculatedHeight = (CGFloat(value) / self.barChart.frame.height) * self.barChart.frame.height
+            
+            let xPos = CGFloat(self.barChart.frame.width - (widthMultiplier * self.barChart.frame.width))
+            let yPos = CGFloat(self.barChart.frame.height - barCalculatedHeight)
 
+            mainLayer.addRectangleLayer(frame: CGRect(x: xPos, y: yPos, width: 50, height: CGFloat(value)), color: UIColor.gray.cgColor)
+
+        }
+        
     }
     
 }
