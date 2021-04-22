@@ -42,14 +42,39 @@ class ViewController: UIViewController {
     }
     
     func addHorizontalLine(){
-        let line = computeHorizontalLine()
-        mainLayer.addLineLayer(lineSegment: line.segment, color: UIColor.gray.cgColor, width: line.width, isDashed: false)
+        let lines = computeHorizontalLine()
+        
+        lines.forEach { (line) in
+            mainLayer.addLineLayer(lineSegment: line.segment, color: UIColor.gray.cgColor, width: line.width, isDashed: false)
+        }
+        
     }
     
-    func computeHorizontalLine() -> HorizontalLine {
-        let lineSegment = LineSegment(startPoint: CGPoint(x: 0, y: self.barChart.frame.height), endPoint: CGPoint(x: self.barChart.frame.width, y: self.barChart.frame.height))
-        let line = HorizontalLine(segment: lineSegment, width: 0.5, text: "0")
-        return line
+    func computeHorizontalLine() -> [HorizontalLine] {
+        
+        var lines = [HorizontalLine]()
+        
+        let data = [
+            (heightMultiplier: CGFloat(0.0), text: "0"),
+            (heightMultiplier: CGFloat(0.5), text: "\(self.barChart.frame.height / 2)"),
+            (heightMultiplier: CGFloat(1.0), text: "\(self.barChart.frame.height)")
+
+        ]
+        
+        data.forEach { (heightMultiplier, text) in
+            
+            let yPos = self.barChart.frame.height - (heightMultiplier * self.barChart.frame.height)
+            
+            let lineSegment = LineSegment(
+                startPoint: CGPoint(x: 0, y: yPos),
+                endPoint: CGPoint(x: self.barChart.frame.width, y: yPos)
+            )
+             
+            lines.append(HorizontalLine(segment: lineSegment, width: 0.5, text: text))
+
+        }
+        
+        return lines
     }
     
     func addHorizontalLineText(){
