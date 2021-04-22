@@ -14,7 +14,7 @@ struct LineSegment {
 
 struct HorizontalLine {
     let segment: LineSegment
-    let width: CGFloat
+    let weight: CGFloat
     let text: String
     let heightMultiplier: CGFloat
 }
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         let lines = computeHorizontalLine()
         
         lines.forEach { (line) in
-            mainLayer.addLineLayer(lineSegment: line.segment, color: UIColor.gray.cgColor, width: line.width, isDashed: false)
+            mainLayer.addLineLayer(lineSegment: line.segment, color: UIColor.gray.cgColor, weight: line.weight)
         }
         
     }
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                 endPoint: CGPoint(x: lineWidth, y: yPos)
             )
              
-            lines.append(HorizontalLine(segment: lineSegment, width: 0.5, text: text, heightMultiplier: heightMultiplier))
+            lines.append(HorizontalLine(segment: lineSegment, weight: 0.5, text: text, heightMultiplier: heightMultiplier))
 
         }
         
