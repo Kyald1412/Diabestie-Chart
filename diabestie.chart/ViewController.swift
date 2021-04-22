@@ -14,7 +14,7 @@ struct LineSegment {
 
 struct HorizontalLine {
     let segment: LineSegment
-    let width: CGFloat
+    let weight: CGFloat
     let text: String
 }
 
@@ -33,28 +33,23 @@ class ViewController: UIViewController {
     }
     
     func setupBarChart(){
-        
-        mainLayer.frame = barChart.bounds
-        self.barChart.layer.addSublayer(mainLayer)
-        
-        addHorizontalLine()
-        
     }
     
     func addHorizontalLine(){
-        let line = computeHorizontalLine()
-        mainLayer.addLineLayer(lineSegment: line.segment, color: UIColor.gray.cgColor, width: line.width, isDashed: false)
     }
     
     func computeHorizontalLine() -> HorizontalLine {
-        let lineSegment = LineSegment(startPoint: CGPoint(x: 0, y: self.barChart.frame.height), endPoint: CGPoint(x: self.barChart.frame.width, y: self.barChart.frame.height))
-        let line = HorizontalLine(segment: lineSegment, width: 0.5, text: "0")
-        return line
     }
     
     func addHorizontalLineText(){
         
     }
-   
+    
+    func addBottomText(){
+    }
+    
+    func addBarChart(){
+        
+    }
 }
 

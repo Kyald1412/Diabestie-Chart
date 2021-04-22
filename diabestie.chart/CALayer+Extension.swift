@@ -9,15 +9,12 @@ import UIKit
 
 extension CALayer {
     
-    func addLineLayer(lineSegment: LineSegment, color: CGColor, width: CGFloat, isDashed: Bool) {
+    func addLineLayer(lineSegment: LineSegment, color: CGColor, weight: CGFloat) {
         let layer = CAShapeLayer()
         layer.path = UIBezierPath(lineSegment: lineSegment).cgPath
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = color
-        layer.lineWidth = width
-        if isDashed {
-            layer.lineDashPattern = [4, 4]
-        }
+        layer.lineWidth = weight
         self.addSublayer(layer)
 
     }
