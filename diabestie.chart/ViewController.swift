@@ -7,34 +7,54 @@
 
 import UIKit
 
+struct LineSegment {
+    let startPoint: CGPoint
+    let endPoint: CGPoint
+}
+
+struct HorizontalLine {
+    let segment: LineSegment
+    let width: CGFloat
+    let text: String
+}
+
 class ViewController: UIViewController {
 
-    @IBOutlet weak var barChart: BarChart!
+    @IBOutlet weak var barChart: UIView!
+    
+    let mainLayer = CALayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        barChart.updateDataEntries(dataEntries: generateBarchartEntry(), animated: true)
+        setupBarChart()
         
     }
     
-    func generateBarchartEntry() -> [BarDataEntry] {
+    func setupBarChart(){
         
-        var result: [BarDataEntry] = .init()
-        let entries = [08,12,16]
-        let colors = [#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)]
+        mainLayer.frame = barChart.bounds
+        self.barChart.layer.addSublayer(mainLayer)
         
-        entries.forEach({ (time) in
-            let value = (arc4random() % 90) + 100
-            
-            print("value \(value)")
-            let height: Float = Float(value)
-            
-            result.append(BarDataEntry(color: colors[time % colors.count], height: height, time: Float(time)))
-        })
+        addHorizontalLine()
         
-        return result
     }
+    
+    func addHorizontalLine(){
+        let line = computeHorizontalLine()
+        mainLayer.addLineLayer(lineSegment: line.segment, color: UIColor.gray.cgColor, width: line.width, isDashed: false)
+    }
+    
+    func computeHorizontalLine() -> HorizontalLine {
+        let lineSegment = LineSegment(startPoint: CGPoint(x: 0, y: self.barChart.frame.height), endPoint: CGPoint(x: self.barChart.frame.width, y: self.barChart.frame.height))
+        let line = HorizontalLine(segment: lineSegment, width: 0.5, text: "0")
+        return line
+    }
+    
+    func addHorizontalLineText(){
+        
+    }
+   
 }
 
