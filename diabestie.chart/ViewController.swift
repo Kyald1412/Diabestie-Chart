@@ -41,6 +41,7 @@ class ViewController: UIViewController {
         addHorizontalLine()
         addHorizontalLineText()
         addBottomText()
+        addBarChart()
         
     }
     
@@ -118,6 +119,18 @@ class ViewController: UIViewController {
             )
         }
         
+    }
+    
+    func addBarChart(){
+        
+        let barHeight: CGFloat = 100
+        let barCalculatedHeight = (barHeight / self.barChart.frame.height) * self.barChart.frame.height
+        
+        let xPos = CGFloat(self.barChart.frame.width - (1.0 * self.barChart.frame.width))
+        let yPos = CGFloat(self.barChart.frame.height - barCalculatedHeight)
+
+        mainLayer.addRectangleLayer(frame: CGRect(x: xPos, y: yPos, width: 50, height: barHeight), color: UIColor.gray.cgColor)
+
     }
     
 }
