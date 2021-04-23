@@ -101,14 +101,14 @@ class ViewController: UIViewController {
     func addBottomText(){
         
         let data = [
-            (heightMultiplier: CGFloat(1.0), text: "2020"),
-            (heightMultiplier: CGFloat(0.7), text: "2021"),
-            (heightMultiplier: CGFloat(0.4), text: "2022")
+            (widthMultiplier: CGFloat(1.0), text: "2020"),
+            (widthMultiplier: CGFloat(0.7), text: "2021"),
+            (widthMultiplier: CGFloat(0.4), text: "2022")
         ]
         
-        data.forEach { (heightMultiplier, text) in
+        data.forEach { (widthMultiplier, text) in
             
-            let xPos = self.barChart.frame.width - (heightMultiplier * self.barChart.frame.width)
+            let xPos = self.barChart.frame.width - (widthMultiplier * self.barChart.frame.width)
                         
             mainLayer.addTextLayer(
                 frame: CGRect(x: xPos, y: self.barChart.frame.height, width: 50, height: 50),
